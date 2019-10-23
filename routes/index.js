@@ -9,7 +9,7 @@ router.get('/', gandalf, (req, res) => {
   let newCalls
 
   return client.get(keyValue, (_err, calls) => {
-    if (calls) {
+    //// if (calls) {
       // increments call count by 1
       newCalls = Number(calls) + 1
 
@@ -18,12 +18,12 @@ router.get('/', gandalf, (req, res) => {
 
       // returns call value for demo purpose
       return res.json({ calls: newCalls })
-    } else {
+    //// } else {
       // if no call in store yet, sets it to 1 for first call
       // also has the key expire after 3 minutes
-      client.set(keyValue, 1)
-      return res.json({ calls: 1 })
-    }
+      // client.set(keyValue, 1)
+      // return res.json({ calls: 1 })
+    
   })
 })
 
