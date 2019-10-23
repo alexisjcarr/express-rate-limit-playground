@@ -9,30 +9,24 @@ router.get('/', gandalf, (req, res) => {
   let newCalls
 
   return client.get(keyValue, (_err, calls) => {
-    //// if (calls) {
-      // increments call count by 1
-      newCalls = Number(calls) + 1
+    /*=== increments call count by 1 ===*/
+    newCalls = Number(calls) + 1
 
-      // stores incremented value in redis store
-      client.set(keyValue, newCalls)
+    /*=== stores incremented value in redis store ===*/
+    client.set(keyValue, newCalls)
 
-      // returns call value for demo purpose
-      return res.json({ calls: newCalls })
-    //// } else {
-      // if no call in store yet, sets it to 1 for first call
-      // also has the key expire after 3 minutes
-      // client.set(keyValue, 1)
-      // return res.json({ calls: 1 })
-    
+    /*=== returns call value for demo purpose ===*/
+    return res.json({ calls: newCalls })
   })
 })
 
+/*=== testing posting to mongodb instance ===*/
 router.post('/', async (req, res) => {
-  const { apiKey } = req.body
-  const key = new Key({ key: apiKey })
+  const { key } = req.body
+  const newKey = new Key({ key })
 
   try {
-    const savedKey = await key.save()
+    const savedKey = await newKey.save()
     res.status(201).json(savedKey)
   } catch (err) {
     res.status(400).json(err)
