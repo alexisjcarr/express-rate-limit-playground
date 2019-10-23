@@ -20,8 +20,9 @@ router.get('/', gandalf, (req, res) => {
       return res.json({ calls: newCalls })
     } else {
       // if no call in store yet, sets it to 1 for first call
+      // also has the key expire after 3 minutes
       client.set(keyValue, 1)
-      return res.json({ calls: newCalls })
+      return res.json({ calls: 1 })
     }
   })
 })
