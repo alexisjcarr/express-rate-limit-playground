@@ -6,10 +6,12 @@ const gandalf = require('../middleware')
 
 router.get('/', gandalf, (req, res) => {
   const keyValue = req.key
+  let newCalls
+
   return client.get(keyValue, (_err, calls) => {
     if (calls) {
       // increments call count by 1
-      let newCalls = Number(calls) + 1
+      newCalls = Number(calls) + 1
 
       // stores incremented value in redis store
       client.set(keyValue, newCalls)
